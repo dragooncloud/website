@@ -1,0 +1,12 @@
+image: ubuntu
+stack: node 10
+
+environment:
+  firebase_deploy_token:
+    secure: RGcN1DPrAc+fS4uY8Xp5oGnlJ5+R7/00AcGpSdZphZ4fTq1t6PCOp1skRR78mm2t
+
+install:
+  - npm i -g firebase-tools
+
+build_script:
+  - firebase deploy --token $firebase_deploy_token --only hosting
