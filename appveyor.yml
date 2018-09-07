@@ -9,4 +9,5 @@ install:
   - npm i -g firebase-tools
 
 build_script:
+  - echo $APPVEYOR_BUILD_VERSION > public/version.txt && date >> public/version.txt
   - firebase deploy --token $firebase_deploy_token --only hosting
