@@ -9,6 +9,6 @@ install:
   - npm i -g firebase-tools
 
 build_script:
-  - current=`date --rfc-3339=seconds | sed 's/\s/T/'` && sed -i 's/<lastmod.*$/<lastmod>'"$current"'<\/lastmod>/g' sitemap.xml
+  - current=`date --rfc-3339=seconds | sed 's/\s/T/'` && sed -i 's/<lastmod.*$/<lastmod>'"$current"'<\/lastmod>/g' public/sitemap.xml
   - echo $APPVEYOR_BUILD_VERSION > public/version.txt && date --rfc-3339=seconds >> public/version.txt
   - firebase deploy --token $firebase_deploy_token --only hosting
