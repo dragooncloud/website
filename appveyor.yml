@@ -4,10 +4,13 @@ stack: node 10
 environment:
   firebase_deploy_token:
     secure: RGcN1DPrAc+fS4uY8Xp5oGnlJ5+R7/00AcGpSdZphZ4fTq1t6PCOp1skRR78mm2t
+  decrypt_service_account_secret:
+    secure: V242ykFUloKUEyQFCTk+46ZwFB7tqYXd5RyOHniYEPs=
 
 install:
   - npm i -g firebase-tools
   - npm i --prefix ./functions
+  - ./appveyor-tools/secure-file -decrypt ./functions/firebase-api/serviceAccount.json.enc -secret $decrypt_service_account_secret
 
 build_script:
   - current=`date --rfc-3339=seconds | sed 's/\s/T/'` && sed -i 's/<lastmod.*$/<lastmod>'"$current"'<\/lastmod>/g' public/sitemap.xml
