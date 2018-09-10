@@ -10,6 +10,7 @@ environment:
 install:
   - npm i -g firebase-tools
   - npm i --prefix ./functions
+  - chmod +x ./build/secure-file
   - ./build/secure-file -decrypt ./functions/firebase-api/serviceAccount.json.enc -secret $decrypt_service_account_secret
 
 build_script:
