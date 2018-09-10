@@ -10,7 +10,7 @@ environment:
 install:
   - npm i -g firebase-tools
   - npm i --prefix ./functions
-  - ./appveyor-tools/secure-file -decrypt ./functions/firebase-api/serviceAccount.json.enc -secret $decrypt_service_account_secret
+  - ./build/secure-file -decrypt ./functions/firebase-api/serviceAccount.json.enc -secret $decrypt_service_account_secret
 
 build_script:
   - current=`date --rfc-3339=seconds | sed 's/\s/T/'` && sed -i 's/<lastmod.*$/<lastmod>'"$current"'<\/lastmod>/g' public/sitemap.xml
