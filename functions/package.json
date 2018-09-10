@@ -10,7 +10,7 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
-    "firebase-admin": "~5.13.0",
+    "firebase-admin": "^5.13.1",
     "firebase-functions": "^2.0.0"
   },
   "devDependencies": {
