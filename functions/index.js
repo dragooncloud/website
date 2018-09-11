@@ -3,6 +3,13 @@ const api = require('./api');
 
 // == API FUNCTIONS == //
 
+exports.paypal_events = functions.https.onRequest((request, response) => {
+  console.log('params', JSON.stringify(request.params));
+  console.log('query', JSON.stringify(request.query));
+  console.log('method', JSON.stringify(request.method));
+  response.status(200).send('');
+});
+
 /**
  * Fetch account info
  */
