@@ -49,13 +49,11 @@ const FirebaseApi = {
           return null; // user not found
         }
         // check account id known by user is correct
-        const usersAccountId = userInfo.account._referencePath.segments[1];
-        if (usersAccountId !== accountId) {
-          console.error(`users account did not match, expected:${accountId} got:${usersAccountId}`);
+        const userIsAssociatedWithAccount = userInfo.accounts[accountId];
+        if (userIsAssociatedWithAccount !== true) {
+          console.error(`user is not associated with account ${accountId}`, JSON.stringify(userInfo.accounts));
           return null; // account not the same
         }
-        // leave only the id here
-        userInfo.account = usersAccountId;
         return userInfo;
       });
   }

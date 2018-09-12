@@ -1,4 +1,10 @@
 const functions = require('firebase-functions');
+var cors = require('cors')({
+  origin: ['http://localhost:3000', 'https://login.dragoon.cloud'],
+  methods: ['GET', 'POST'],
+  allowedHeaders: '*',
+  credentials: true,
+});
 const api = require('./api');
 
 // == API FUNCTIONS == //
@@ -27,34 +33,40 @@ exports.paypal_events = functions.https.onRequest((request, response) => {
 
 /**
  * Fetch account info
+ * TODO: can we force auth (ie require access_token+network for this call?)
  */
 exports.account_info = functions.https.onRequest((request, response) => {
-  return api.getAccountInfo(request.query.account)
-    .then((account) => {
-      if (!account) {
-        return response.status(404).send({error: 'Subscription not found'});
-      }
-      return response.status(200).send(account);
-    })
-    .catch((err) => {
-      console.error(`Unable to fetch account info:`, err);
-      return response.status(500).send({error: err});
-    });
+  cors(request, response, () => {
+    return api.getAccountInfo(request.query.account)
+      .then((account) => {
+        if (!account) {
+          return response.status(404).send({error: 'Account not found'});
+        }
+        return response.status(200).send(account);
+      })
+      .catch((err) => {
+        console.error(`Unable to fetch account info:`, err);
+        return response.status(500).send({error: err});
+      });
+  });
 });
 
 /**
  * Fetch user info
+ * TODO: can we force auth (ie require access_token+network for this call?)
  */
 exports.user_info = functions.https.onRequest((request, response) => {
-  return api.getUserInfo(request.query.user, request.query.account)
-    .then((user) => {
-      if (!user) {
-        return response.status(404).send({error: 'User not found'});
-      }
-      return response.status(200).send(user);
-    })
-    .catch((err) => {
-      console.error(`Unable to fetch user info:`, err);
-      return response.status(500).send({error: err});
-    });
+  cors(request, response, () => {
+    return api.getUserInfo(request.query.user, request.query.account)
+      .then((user) => {
+        if (!user) {
+          return response.status(404).send({error: 'User not found'});
+        }
+        return response.status(200).send(user);
+      })
+      .catch((err) => {
+        console.error(`Unable to fetch user info:`, err);
+        return response.status(500).send({error: err});
+      });
+  });
 });
