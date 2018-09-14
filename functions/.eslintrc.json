@@ -4,9 +4,10 @@
     "ecmaVersion": 6
   },
   "plugins": [
-    "promise"
+    "promise",
+    "security"
   ],
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "plugin:security/recommended"],
   "rules": {
     // Removed rule "disallow the use of console" from recommended eslint rules
     "no-console": "off",

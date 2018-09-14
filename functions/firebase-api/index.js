@@ -1,4 +1,4 @@
-var admin = require("firebase-admin");
+const admin = require("firebase-admin");
 
 // initialise on runtime start-up
 const serviceAccount = require('./serviceAccount.json');
